@@ -9,3 +9,8 @@ Also if possible I can make a separate Repo for my blog, and host it on a sub do
 `blog.brisberg.dev`
 
 I can leave this main repo as a main information and forarding point for any other project I have hosted on github pages.
+
+https://stackoverflow.com/questions/46455900/subdomain-of-website-for-github-pages-project
+https://christopherkade.com/posts/subdomain-githubpages
+
+Actually got it to work by pointing the DNS CNAME rules to `brisberg.github.io`. Need to make a blog post about this.
