@@ -1,0 +1,7 @@
+<!--
+  Overrides theme/minimal/layouts/partials/head-open.html to be injected into
+  the top of the <head> tag by theme/minimal/layouts/partials/header.html.
+-->
+
+<!-- Append Site Title to all page titles except root -->
+<title>{{ .Page.Title }}{{ if ne .Page.Title .Site.Title }} - {{ .Site.Title }}{{ end }}</title>
