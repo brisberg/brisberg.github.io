@@ -1,0 +1,4 @@
+baseURL = "https://brisberg.dev/"
+languageCode = "en-us"
+title = "My New Hugo Site"
+theme = "ananke"
