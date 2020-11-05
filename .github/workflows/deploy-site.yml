@@ -1,16 +1,16 @@
-name: Deploy to GitHub Pages
+name: Deploy Site
 
 on:
   push:
     paths:
-      # Trigger only when wiki directory changes
+      # Trigger only when site directory changes
       - 'site/**'
     branches:
       # And only on main branch
       - main
 
 jobs:
-  deploy:
+  hugo-to-gh-pages:
     runs-on: ubuntu-18.04
     steps:
       - uses: actions/checkout@v2
@@ -31,5 +31,5 @@ jobs:
         uses: JamesIves/github-pages-deploy-action@3.5.9
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          BRANCH: gh-pages # The branch the action should deploy to.
+          BRANCH: gh-pages    # The branch the action should deploy to.
           FOLDER: site/public # The folder the action should deploy.
