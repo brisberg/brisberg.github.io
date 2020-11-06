@@ -9,10 +9,10 @@ description: Live Applications I have built
 
 ## Twine Games
 
-I love the concept of online interactive fiction and created some  [simple games](https://brisberg.dev/twine-games) using [Twine](https://twinery.org/):
+I love the concept of online interactive fiction and created some  [simple games](https://twine.brisberg.dev) using [Twine](https://twinery.org/):
 
-- ##### Cellar Crawl - [Play](https://brisberg.dev/twine-games/cellar-crawl)
+- ##### Cellar Crawl - [Play](https://twine.brisberg.dev/cellar-crawl)
   - Explore the dark cellar beneith a creepy house to discover its secret.
 
-- ##### Journey - [Play](https://brisberg.dev/twine-games/journey)
+- ##### Journey - [Play](https://twine.brisberg.dev/journey)
   - Travel the high seas, overcoming challenges in an Oregon Trail inspired game.
