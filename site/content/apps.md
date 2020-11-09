@@ -1,6 +1,6 @@
 ---
 title: Apps
-description: Live Applications I have built
+description: Live Applications I develop and maintain
 ---
 
 ## Friday Fellows Updater
