@@ -1,0 +1,3 @@
+# Linguist overrides https://github.com/github/linguist#overrides
+site/**/*.md linguist-detectable=true
+
