@@ -8,6 +8,6 @@ Specifically this should be an index of my other online content, not necessisari
 
 ## Framework
 
-I should look into using [Hugp](https://gohugo.io/) as my site generator, using [Minimal](https://github.com/calintat/minimal) theme. Inspiration https://nikitavoloboev.xyz/.
+I should look into using [Hugo](https://gohugo.io/) as my site generator, using [Minimal](https://github.com/calintat/minimal) theme. Inspiration https://nikitavoloboev.xyz/.
 
 There might be other themes, and I could customize it a bit. But it will include social media, blog, projects, wiki, etc.
