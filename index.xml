@@ -1,3 +1,18 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Brandon Risberg</title><link>https://brisberg.dev/</link><description>Recent content on Brandon Risberg</description><generator>Hugo -- gohugo.io</generator><language>en-us</language><atom:link href="https://brisberg.dev/index.xml" rel="self" type="application/rss+xml"/><item><title>Apps</title><link>https://brisberg.dev/apps/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://brisberg.dev/apps/</guid><description>Friday Fellows Updater Friday Fellows Updater is an open source web application to track and manage the Anime watch history of my friends from Anime Club.
-Twine Games I love the concept of online interactive fiction and created some simple games using Twine:
-Cellar Crawl - Play Explore the dark cellar beneith a creepy house to discover its secret. Journey - Play Travel the high seas, overcoming challenges in an Oregon Trail inspired game.</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Brandon Risberg</title><link>https://brisberg.dev/</link><description>Recent content on Brandon Risberg</description><generator>Hugo</generator><language>en-us</language><atom:link href="https://brisberg.dev/index.xml" rel="self" type="application/rss+xml"/><item><title>Apps</title><link>https://brisberg.dev/apps/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://brisberg.dev/apps/</guid><description>&lt;h2 id="friday-fellows-updater"&gt;Friday Fellows Updater&lt;/h2&gt;
+&lt;p&gt;&lt;a href="https://friday-fellows.brisberg.dev"&gt;Friday Fellows Updater&lt;/a&gt; is an &lt;a href="https://github.com/brisberg/friday-fellows-gcf"&gt;open source&lt;/a&gt; web application to track and manage the Anime watch history of my friends from Anime Club.&lt;/p&gt;
+&lt;h2 id="twine-games"&gt;Twine Games&lt;/h2&gt;
+&lt;p&gt;I love the concept of online interactive fiction and created some &lt;a href="https://twine.brisberg.dev"&gt;simple games&lt;/a&gt; using &lt;a href="https://twinery.org/"&gt;Twine&lt;/a&gt;:&lt;/p&gt;
+&lt;ul&gt;
+&lt;li&gt;
+&lt;h5 id="cellar-crawl---play"&gt;Cellar Crawl - &lt;a href="https://twine.brisberg.dev/cellar-crawl"&gt;Play&lt;/a&gt;&lt;/h5&gt;
+&lt;ul&gt;
+&lt;li&gt;Explore the dark cellar beneith a creepy house to discover its secret.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;li&gt;
+&lt;h5 id="journey---play"&gt;Journey - &lt;a href="https://twine.brisberg.dev/journey"&gt;Play&lt;/a&gt;&lt;/h5&gt;
+&lt;ul&gt;
+&lt;li&gt;Travel the high seas, overcoming challenges in an Oregon Trail inspired game.&lt;/li&gt;
+&lt;/ul&gt;
+&lt;/li&gt;
+&lt;/ul&gt;</description></item></channel></rss>
