@@ -4,3 +4,6 @@
 [submodule "site/themes/minimal"]
 	path = site/themes/minimal
 	url = https://github.com/calintat/minimal.git
+[submodule "site/themes/black-and-light"]
+	path = site/themes/black-and-light
+	url = https://github.com/davidhampgonsalves/hugo-black-and-light-theme.git

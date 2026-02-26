@@ -1,7 +1,10 @@
 baseURL = "https://brisberg.dev/"
 languageCode = "en-us"
 title = "Brandon Risberg"
-theme = "minimal"
+theme = "black-and-light"
+
+pygmentsstyle       = "bw"
+pygmentscodefences  = true
 
 [params]
     author = "Brandon Risberg"
