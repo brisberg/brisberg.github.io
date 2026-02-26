@@ -3,8 +3,9 @@ name: Publish Wiki
 on:
   push:
     paths:
-      # Trigger only when wiki directory changes
+      # Trigger only when wiki directory or workflow changes
       - 'wiki/**'
+      - .github/workflows/publish-wiki.yml
     branches:
       # And only on main branch
       - main
@@ -13,10 +14,10 @@ jobs:
   publish-wiki:
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v2
+    - uses: actions/checkout@v3
 
     - name: Push Wiki Changes
-      uses: Andrew-Chen-Wang/github-wiki-action@v2
+      uses: Andrew-Chen-Wang/github-wiki-action@v5
       env:
         WIKI_DIR: wiki/
         GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}

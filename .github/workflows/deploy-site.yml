@@ -3,8 +3,9 @@ name: Deploy Site
 on:
   push:
     paths:
-      # Trigger only when site directory changes
+      # Trigger only when site directory or workflow changes
       - 'site/**'
+      - .github/workflows/deploy-site.yml
     branches:
       # And only on main branch
       - main
@@ -13,22 +14,22 @@ jobs:
   hugo-to-gh-pages:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v3
         with:
           submodules: true  # Fetch Hugo themes (true OR recursive)
           fetch-depth: 0    # Fetch all history for .GitInfo and .Lastmod
 
       - name: Setup Hugo
-        uses: peaceiris/actions-hugo@v2
+        uses: peaceiris/actions-hugo@v3
         with:
-          hugo-version: '0.78.0'
+          hugo-version: '0.157.0'
           extended: true
 
       - name: Build
         run: hugo -D -s site --minify
 
       - name: Deploy
-        uses: JamesIves/github-pages-deploy-action@3.7.1
+        uses: JamesIves/github-pages-deploy-action@4.8.0
         with:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           BRANCH: gh-pages    # The branch the action should deploy to.
