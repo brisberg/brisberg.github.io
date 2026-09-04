@@ -153,7 +153,12 @@ resolved at all — and the misspelling dies with it: the section is `/recipes/`
 
 ## Working in this repo
 
-- Hugo site root is `site/`. Run `hugo server -s site -D` (or `make serve`).
+- Hugo site root is `site/`. Run `./scripts/serve.sh`; new content via
+  `./scripts/new.sh <blog|wiki|recipes> "<Title>"`. **No Makefile, no task
+  runner** — there is no build graph, and `just` would mean a `brew` dependency in
+  a system built around not having one (D3).
+- The Hugo version lives in `.hugoversion` at the repo root and is read by CI.
+  There is exactly one number; bump it and your local binary together.
 - Sections: `site/content/blog/`, `site/content/wiki/`, `site/content/recipes/`.
 - Layouts use the Hugo ≥0.146 template system: `layouts/baseof.html`,
   `layouts/home.html`, `layouts/page.html`, `layouts/list.html`,

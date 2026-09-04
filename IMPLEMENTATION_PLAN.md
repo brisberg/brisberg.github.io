@@ -103,7 +103,20 @@ Work in `brisberg.github.io`, on a branch. Nothing deploys yet.
 4. **Section skeletons.** Create `site/content/{blog,wiki,recipes}/_index.md` with a
    title and one-line description each.
 
-5. Verify: `hugo server -s site -D` builds clean with no theme.
+5. **Pin the Hugo version once, in one place.** Write the local version into a
+   `.hugoversion` file at the repo root:
+
+   ```
+   hugo version | sed -E 's/^hugo v([0-9.]+).*/\1/' > .hugoversion
+   ```
+
+   CI reads this file (Block 3), so local and CI can never silently diverge —
+   which is exactly how the old setup ended up building the wiki with Hugo 0.78
+   and the root site with 0.157. Local is currently **0.164.0**; bump the file and
+   your local binary together, deliberately.
+
+6. Verify: `./scripts/serve.sh` (Block 5) or `hugo server -s site -D` builds clean
+   with no theme.
 
 ## Block 2 — Migrate content (≈2h)
 
@@ -161,15 +174,15 @@ Work in `brisberg.github.io`, on a branch. Nothing deploys yet.
    jobs:
      build:
        runs-on: ubuntu-latest
-       env:
-         HUGO_VERSION: 0.157.0
        steps:
          - uses: actions/checkout@v4
            with:
              fetch-depth: 0        # for .GitInfo / .Lastmod
+         - id: hugo-version
+           run: echo "v=$(cat .hugoversion)" >> "$GITHUB_OUTPUT"
          - uses: peaceiris/actions-hugo@v3
            with:
-             hugo-version: ${{ env.HUGO_VERSION }}
+             hugo-version: ${{ steps.hugo-version.outputs.v }}
              extended: true
          - run: hugo -s site --minify --baseURL "https://brisberg.dev/"
          - uses: actions/upload-pages-artifact@v3
@@ -236,20 +249,52 @@ git push`. Everything here serves that and nothing more.
    matter that section actually needs (blog: title/date/draft/summary/tags;
    recipes: title/date/draft/servings/time; wiki: title/weight).
 
-3. **Makefile**:
-   ```make
-   serve:  ; hugo server -s site -D --navigateToChanged
-   build:  ; hugo -s site --minify
-   post:   ; hugo new -s site content/blog/$(SLUG).md --kind blog
-   recipe: ; hugo new -s site content/recipes/$(SLUG).md --kind recipes
-   note:   ; hugo new -s site content/wiki/$(SLUG).md --kind wiki
+3. **Two shell scripts — no Make.** There is no build graph here; Hugo does the
+   building. These are command aliases, and Make earns nothing for them while
+   costing `.PHONY` footguns, tab-sensitivity, and awkward argument passing.
+   `just` would fit better but is a `brew install` — a dependency in a system whose
+   thesis (D3) is not having one. Rejected for that reason alone.
+
+   `scripts/serve.sh`:
+   ```sh
+   #!/usr/bin/env bash
+   set -euo pipefail
+   cd "$(dirname "$0")/.."
+   exec hugo server -s site -D --navigateToChanged "$@"
    ```
+
+   `scripts/new.sh`:
+   ```sh
+   #!/usr/bin/env bash
+   # usage: scripts/new.sh <blog|wiki|recipes> "<Title>"
+   set -euo pipefail
+   cd "$(dirname "$0")/.."
+
+   section="${1:?usage: scripts/new.sh <blog|wiki|recipes> \"<Title>\"}"
+   title="${2:?usage: scripts/new.sh <blog|wiki|recipes> \"<Title>\"}"
+
+   slug=$(printf '%s' "$title" \
+     | tr '[:upper:]' '[:lower:]' \
+     | sed -E 's/[^a-z0-9]+/-/g; s/^-+//; s/-+$//')
+
+   hugo new -s site "content/${section}/${slug}.md" --kind "$section"
+   ${EDITOR:-code} "site/content/${section}/${slug}.md"
+   ```
+
+   `chmod +x scripts/*.sh`. Usage: `./scripts/new.sh blog "My First Post"`.
+
+   **Deliberate tradeoff:** the script passes only the slug to Hugo, so the
+   archetype derives the title with
+   `{{ replace .File.ContentBaseName "-" " " | title }}` — which title-cases it.
+   For a title like "Deploying iOS builds" you fix one line in the editor that just
+   opened. Rewriting front matter from the script needs BSD-vs-GNU `sed` handling
+   for one saved keystroke; not worth it unless it actually annoys you.
 
 4. **`docs/publishing.md`** — how to run locally, how to publish, how to promote a
    post to the homepage (`featured: true` + `weight`). This replaces the GitHub
    Wiki.
 
-5. Replace `.vscode/tasks.json` with a task that runs `make serve`.
+5. Replace `.vscode/tasks.json` with a task that runs `./scripts/serve.sh`.
 
 ---
 
