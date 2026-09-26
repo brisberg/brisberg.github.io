@@ -33,7 +33,11 @@ line if the result is wrong — "Deploying iOS Builds" arrives as "Deploying Ios
 Builds".
 
 New blog and recipe pages start as `draft: true`. **Drafts are never published** —
-CI builds without `-D`. Remove the line when it's ready.
+CI builds without `-D`. Remove the line when it's ready; do not set `draft: false`.
+Hugo treats every value other than a correct, unquoted `true` as publishable — `fals`
+and `"false"` both publish, silently — so the line can only restate the default, never
+catch a mistake. Since the archetypes always write `draft: true`, its absence is
+already proof it was removed on purpose.
 
 Content headings start at `##`. The layouts render the `<h1>` from the front-matter
 `title`; a second one in the body is a duplicate.
