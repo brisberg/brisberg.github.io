@@ -15,10 +15,14 @@ disableKinds = ['taxonomy', 'term']
   github = 'https://github.com/brisberg'
 
 [markup]
-  # Resolves internal markdown destinations like [Text](path.md) to real
-  # permalinks. 'auto' only activates for multilingual sites, so this must be
-  # explicit or every Obsidian-authored link silently breaks (CLAUDE.md D7).
+  # Resolves internal markdown destinations like [Text](path.md) and
+  # ![alt](image.png) to real permalinks. 'auto' only activates for multilingual
+  # sites, so both must be explicit or every Obsidian-authored reference silently
+  # breaks (CLAUDE.md D7).
   [markup.goldmark.renderHooks.link]
+    useEmbedded = 'always'
+
+  [markup.goldmark.renderHooks.image]
     useEmbedded = 'always'
 
   [markup.goldmark.renderer]

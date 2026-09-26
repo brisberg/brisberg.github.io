@@ -38,6 +38,22 @@ CI builds without `-D`. Remove the line when it's ready.
 Content headings start at `##`. The layouts render the `<h1>` from the front-matter
 `title`; a second one in the body is a duplicate.
 
+### Dates
+
+| Field | Meaning |
+|---|---|
+| `date` | When it was published. **Never change it.** Sets the order of `/blog/`. |
+| `lastmod` | When it was last *substantively* revised. Add it by hand, only then. |
+
+`lastmod` is deliberately not in the archetypes — a new post has nothing to update.
+Add the line when a revision changes what the post says, and leave it alone for a
+typo or a broken link. The byline renders `updated <date>` only when `lastmod` falls
+on a different day than `date`, so an unchanged post shows one date.
+
+`enableGitInfo` would set `lastmod` from the commit time automatically, and is not
+used here on purpose: it can't tell a rewrite from a whitespace fix, so every post
+would claim to have been updated the last time anything in the repo touched it.
+
 ## Previewing
 
 ```sh
@@ -99,6 +115,46 @@ Two things to know:
    hugo -s site --minify
    grep -roh 'href=[^ >]*\.md[^ >]*' site/public/   # should return nothing
    ```
+
+## Images
+
+A page that needs its own images becomes a **directory** — a Hugo leaf bundle. The
+URL does not change.
+
+```
+blog/my-post.md                  →   blog/my-post/index.md
+                                     blog/my-post/a-screenshot.png
+```
+
+Reference the image by its bare filename:
+
+```md
+![A description of what the image shows.](a-screenshot.png)
+```
+
+This is the only image layout that renders in **both** Obsidian and Hugo. The
+Obsidian vault is rooted at `site/content/`, so it cannot see `site/static/` at
+all — an `/img/...` path shows as a broken image while you write. (The wiki images
+under `site/static/img/wiki/` predate this and have that problem. Convert them to
+bundles if you ever edit those pages; don't do it as a sweep.)
+
+`./scripts/new.sh` creates a flat `.md` file. Converting it later is two commands:
+
+```sh
+cd site/content/blog
+mkdir my-post && git mv my-post.md my-post/index.md
+```
+
+**Missing images fail silently**, exactly like links: Hugo emits the raw filename,
+the build succeeds, and the live page shows a broken image. Same check as above,
+for `src`:
+
+```sh
+grep -roh 'src=[^ >]*\.\(png\|jpg\|jpeg\|gif\|webp\)[^ >]*' site/public/
+```
+
+Every hit should be an absolute path starting with `/`. A bare filename means the
+hook did not resolve it.
 
 ## Obsidian
 

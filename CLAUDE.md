@@ -97,12 +97,14 @@ update internal links = on**.
 and it isn't in CommonMark. Every workaround is a preprocessing script or a regex
 render hook — a moving part that fails silently and that we would own forever.
 
-**Consequence:** Hugo's embedded link render hook resolves the resulting
-`[Text](path.md)` links. This must be explicit, because `auto` only activates for
-multilingual projects:
+**Consequence:** Hugo's embedded render hooks resolve the resulting
+`[Text](path.md)` links and `![alt](image.png)` images. Both must be explicit,
+because `auto` only activates for multilingual projects:
 
 ```toml
 [markup.goldmark.renderHooks.link]
+  useEmbedded = 'always'
+[markup.goldmark.renderHooks.image]
   useEmbedded = 'always'
 ```
 
@@ -110,10 +112,14 @@ multilingual projects:
 
 1. The Obsidian setting only changes what Obsidian *generates* — it still parses
    hand-typed `[[...]]`, which renders as literal text on the site.
-2. The render hook does not warn on an unresolved destination. It emits the raw
-   `foo.md` as the href and the build still succeeds, so a link to a page that
-   doesn't exist yet becomes a dead link. Keep placeholder links inside
+2. Neither hook warns on an unresolved destination. It emits the raw `foo.md` or
+   `foo.png` and the build still succeeds, so a reference to something that doesn't
+   exist yet becomes a dead link or a broken image. Keep placeholders inside
    `draft: true` pages.
+
+**Consequence:** a page with its own images is a **leaf bundle** — a directory with
+`index.md` and the images beside it — referenced by bare filename. Images do not go
+in `site/static/`, which is outside the vault and therefore invisible while writing.
 
 ## D8. Layouts own the `<h1>`; content starts at `##`
 
