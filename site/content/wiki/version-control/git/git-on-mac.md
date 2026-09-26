@@ -39,10 +39,8 @@ This lets you use a different config file based on directory.
 
 ### Links
 
-http://www.macfreek.nl/memory/Git_Passwords_in_the_Keychain#Third_Party_Credential_Helpers
-
-[Directory Based Configs](https://stackoverflow.com/a/43884702)
-[IncludeIF Suggestion](https://deepsource.io/blog/managing-different-git-profiles/)
+- [Directory Based Configs](https://stackoverflow.com/a/43884702)
+- [IncludeIF Suggestion](https://deepsource.io/blog/managing-different-git-profiles/)
 
 ## Alternatives
 

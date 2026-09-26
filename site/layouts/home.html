@@ -18,7 +18,7 @@
   </nav>
 
   {{/* Homepage promotion is driven by `featured: true` in a page's front matter,
-       ordered by `weight`. No separate curation file (CLAUDE.md D10). */}}
+       ordered by `weight`. No separate curation file (CLAUDE.md D12). */}}
   {{ $featured := where .Site.RegularPages "Params.featured" true }}
   {{ with $featured.ByWeight }}
     <section class="featured">

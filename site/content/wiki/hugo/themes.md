@@ -22,7 +22,7 @@ found it; I used it for [brisberg.dev][] for several years before dropping theme
 entirely.
 
 ## Book
-[Book](https://themes.gohugo.io/theme/hugo-book/) is a minimalist theme specialized for documentation websites.
+[Book](https://themes.gohugo.io/themes/hugo-book/) is a minimalist theme specialized for documentation websites.
 
 Book has many of the features ideal for a Knowledge Wiki:
 
@@ -39,7 +39,7 @@ this site's own layouts. Book's tree navigation and built-in search are the two
 features I actually miss.
 
 ## Zdoc
-[Zdoc](https://themes.gohugo.io/hugo-theme-zdoc/) ([Demo](https://zzo-docs.vercel.app/zdoc)) is an opinionated wiki framework for creating documentation websites.
+[Zdoc](https://github.com/zzossig/hugo-theme-zdoc) ([Demo](https://zzo-docs.vercel.app/zdoc)) is an opinionated wiki framework for creating documentation websites. It has since been delisted from the Hugo Themes directory, though the theme and its demo are still up.
 
 Zdoc differs from Book in the following ways:
 

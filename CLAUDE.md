@@ -1,11 +1,13 @@
 # brisberg.dev — Infrastructure Decisions
 
-This repo is the single source for everything served at `https://brisberg.dev`.
-It replaces the former split across `blog.brisberg.dev`, `wiki.brisberg.dev`, and
-`recipies.brisberg.dev`.
+This repo holds everything served at `https://brisberg.dev`: the homepage, the blog,
+the knowledge wiki, and recipes. One Hugo site, one deploy.
 
-This file records **decisions and their rationale**, so they don't get re-litigated
-or accidentally reversed. For the migration steps, see `IMPLEMENTATION_PLAN.md`.
+This file records **decisions that still apply**, and why. It describes what exists
+now — not how it got here. Git history holds the migration that consolidated
+`blog.brisberg.dev`, `wiki.brisberg.dev`, and `recipies.brisberg.dev` into this repo.
+
+For how to operate the site, see [`docs/publishing.md`](docs/publishing.md).
 
 ---
 
@@ -14,155 +16,169 @@ or accidentally reversed. For the migration steps, see `IMPLEMENTATION_PLAN.md`.
 `brisberg.dev/blog/`, `/wiki/`, `/recipes/` are **sections of one Hugo site**, not
 separate sites.
 
-**Why:** The original split assumed different content types need different
-*rendering systems*. They don't — they need different *layout templates*, which is
-a per-section concern inside one site. The split bought five configs, five CI
-pipelines, five drifting Hugo versions, no cross-references, no shared search, and
-no shared nav, in exchange for nothing that was actually used.
+**Why:** Different content types need different *layout templates*, not different
+*rendering systems*. Templates are a per-section concern inside one site. The
+alternative — a repo and a subdomain per content type — costs a config, a CI
+pipeline, and an independently drifting Hugo version each, and gives up
+cross-references, shared search, and a shared nav in exchange for nothing.
 
-**Consequence:** Cross-links between any two pages use Hugo's normal page
-resolution. Search indexes everything. `hugo server` previews the whole property.
+**Consequence:** Links between any two pages use Hugo's normal page resolution.
+`./scripts/serve.sh` previews the whole property at once.
 
-## D2. Subdomains are reserved for different *applications*, not different *content*
+## D2. Subdomains are for different *applications*, not different *content*
 
 The dividing line is **different runtime**, not different look.
 
-- `twine.brisberg.dev` — keeps its own repo. Compiled Twine game artifacts fanned
-  in via git submodules + `repository_dispatch`. It works; leave it alone.
+- `twine.brisberg.dev` — its own repo. Serves compiled Twine game artifacts, fanned
+  in via git submodules and `repository_dispatch`. It works; leave it alone.
 - A future SPA or service may claim a subdomain.
 - **Markdown content never gets a subdomain.** It gets a section.
 
-## D3. Stay on Hugo
+Adding a section is five steps, documented in `docs/publishing.md`.
 
-**Why:** Not because Hugo wins on features in 2026 — Astro probably does. Because
-this property sat untouched for five years and the Hugo site still builds. A single
-static binary with no dependency tree is the right choice for software maintained
-by one person a few hours a month. An equivalent Node-based site from 2021 would
-not `npm install` today without work.
+## D3. Hugo, pinned in one place
 
-**Consequence:** Pin the Hugo version in CI and bump it deliberately. No
-`node_modules` in the build path.
+**Why Hugo:** Not because it wins on features — Astro probably does. Because this
+site is maintained by one person a few hours a month, and a single static binary with
+no dependency tree still builds after years of neglect. A Node-based site of the same
+age would not `npm install` without work.
 
-## D4. Repo stays named `brisberg.github.io`
+**Consequence:** The version lives in `.hugoversion` at the repo root, read by both
+the developer and CI. There is exactly one number. No `node_modules` in the build
+path, and no task runner — there is no build graph here, so `make` and `just` would
+add a dependency (or a footgun) to run what are really two shell aliases. Hence
+`scripts/serve.sh` and `scripts/new.sh`.
+
+## D4. The repo stays named `brisberg.github.io`
 
 `<username>.github.io` is GitHub's special user-site repo: it publishes at the root
-of `https://brisberg.github.io`, not `https://brisberg.github.io/<repo>`. The custom
-domain masks this, but the fallback URL stays clean.
+of `https://brisberg.github.io` rather than under a `/<repo>` path. The custom domain
+masks this, but the fallback URL stays clean.
 
 ## D5. GitHub Pages, deployed natively
 
-Stay on GitHub Pages — hosting lives where the code lives, and the main alternative
-(Cloudflare/Netlify) mostly buys per-PR preview deploys, which are worthless for a
-solo author who runs `hugo server`.
+Hosting lives where the code lives. The main alternative (Cloudflare, Netlify) mostly
+buys per-PR preview deploys, which are worth little to a solo author who runs
+`hugo server`.
 
-But cut parts *within* Pages:
+Within Pages, the deploy uses as few parts as possible:
+`actions/upload-pages-artifact` + `actions/deploy-pages` with OIDC
+(`pages: write`, `id-token: write`). **No `gh-pages` branch, no third-party deploy
+action holding a token.** The Pages source is set to "GitHub Actions" — changing it
+back to "Deploy from a branch" silently breaks deploys.
 
-- Use GitHub's native `actions/deploy-pages` + `actions/upload-pages-artifact` with
-  OIDC (`permissions: pages: write, id-token: write`).
-- **No `gh-pages` branch.** No third-party deploy action holding a token.
+CI builds **without `-D`**. Drafts must never publish.
 
 ## D6. No third-party themes
 
-Own the layouts. `themes/` and theme git submodules are gone.
+Layouts are owned by this repo, under `site/layouts/`. There is no `themes/`
+directory and no theme submodule.
 
-**Why:** The site previously carried three theme submodules (two unused, one not
-even checked out), and the live config still described a theme that had been
-swapped out — dead params, dead override files, social icons rendering nowhere.
-For a site this size the layouts are ~150 lines of HTML/CSS. Owning them ends the
-config-drift class of bug permanently, and removes the `submodules: true`
-requirement from CI.
+**Why:** For a site this size the layouts are ~150 lines of HTML plus one
+stylesheet. A third-party theme means its params, its partial structure, and its
+shortcodes leak into content, and config drifts out of sync with whichever theme is
+actually active. Owning the layouts ends that class of bug and keeps CI free of
+`submodules: true`.
 
-**Revisit:** Only after there is real content to theme. Design work is not a
-prerequisite for publishing.
+**Consequence:** `site/layouts/_shortcodes/details.html` exists because wiki content
+uses a `details` shortcode that a theme used to provide. Content must not depend on
+shortcodes this repo does not define.
+
+**Revisit:** Only once there is enough content to be worth designing around. Design
+is not a prerequisite for publishing.
 
 ## D7. Obsidian writes standard Markdown links, not wikilinks
 
-In the Obsidian vault used for this site: **Settings → Files & Links → Use
-[[Wikilinks]] = off**, **New link format = relative path**.
+The vault is rooted at `site/content/`. Required settings under **Files & Links**:
+**Use `[[Wikilinks]]` = off**, **New link format = relative path**, **Automatically
+update internal links = on**.
 
-**Why:** Hugo's maintainer has explicitly declined to support `[[wikilink]]`
-syntax, and it isn't in CommonMark. Every workaround is a preprocessing script or
-regex render hook — a moving part that fails silently and that we'd own forever.
+**Why:** Hugo's maintainer has explicitly declined to support `[[wikilink]]` syntax,
+and it isn't in CommonMark. Every workaround is a preprocessing script or a regex
+render hook — a moving part that fails silently and that we would own forever.
 
 **Consequence:** Hugo's embedded link render hook resolves the resulting
-`[Text](path.md)` links. This requires explicit config, because `auto` only
-activates for multilingual projects:
+`[Text](path.md)` links. This must be explicit, because `auto` only activates for
+multilingual projects:
 
 ```toml
 [markup.goldmark.renderHooks.link]
   useEmbedded = 'always'
 ```
 
-**Known footgun:** the setting only changes what Obsidian *generates*; Obsidian
-still parses hand-typed `[[...]]`. And the embedded hook does not warn on an
-unresolved destination — a link to a page that doesn't exist yet renders as a dead
-link rather than a build error. Keep placeholder links inside `draft: true` pages,
-or add a link checker later (see D10).
+**Two silent failure modes**, both with a grep in `docs/publishing.md`:
 
-## D8. No GitHub Wiki mirroring
+1. The Obsidian setting only changes what Obsidian *generates* — it still parses
+   hand-typed `[[...]]`, which renders as literal text on the site.
+2. The render hook does not warn on an unresolved destination. It emits the raw
+   `foo.md` as the href and the build still succeeds, so a link to a page that
+   doesn't exist yet becomes a dead link. Keep placeholder links inside
+   `draft: true` pages.
 
-The `publish-wiki.yml` workflows are deleted. Developer docs for this site live in
-`docs/` in this repo.
+## D8. Layouts own the `<h1>`; content starts at `##`
 
-**Why:** GitHub Wiki is a separate git repo with no PR review and no coupling to
-the code. Docs describing a workflow file must change in the same commit as the
-workflow file, or they drift. (This reasoning is specific to *this* repo, where the
-wiki is also part of the deliverable — mirroring `docs/` into a repo Wiki remains
-reasonable for other projects.)
+`page.html` and `list.html` render `<h1>` from the front-matter `title`. A second H1
+in the body is a duplicate. `markup.tableOfContents.startLevel = 2` depends on this.
 
-## D9. Cross-posting is deferred
+**Why:** One source of truth for a page's title. A hand-typed in-body H1 drifts from
+the `title` used in lists, nav, and `<title>`, and has to be typed every time.
+
+## D9. No GitHub Wiki mirroring
+
+Developer docs live in `docs/` in this repo.
+
+**Why:** GitHub Wiki is a separate git repo with no PR review and no coupling to the
+code. Docs describing a workflow file must change in the same commit as the workflow
+file, or they drift. (This reasoning is specific to this repo, where the wiki is also
+the deliverable — mirroring `docs/` into a repo Wiki remains reasonable elsewhere.)
+
+## D10. Taxonomies are disabled until there is enough content to need them
+
+```toml
+disableKinds = ['taxonomy', 'term']
+```
+
+**Why:** They were generating empty `/tags/` and `/categories/` pages. `tags` in
+front matter is still recorded and will work retroactively whenever these are
+switched back on — so tag as you write, and enable the pages when there are enough
+to be navigable.
+
+## D11. Cross-posting is deferred
 
 The hard requirement — static URLs under `brisberg.dev` — is satisfied by the site
-itself. Cross-posting to Medium or elsewhere is **not** built until there are posts
-worth cross-posting.
+itself. Cross-posting is **not** built until there are posts worth cross-posting.
 
-Notes for when it's revisited: Medium's publishing API has been effectively
-locked down for years — verify before designing around it. Letterboxd is a
-film-logging service, not a blogging platform; you can review films you've logged,
-but you cannot cross-post arbitrary posts. Whatever the target, `brisberg.dev`
+Notes for whenever it is revisited: Medium's publishing API has been effectively
+locked down for years; verify before designing around it. Letterboxd is a
+film-logging service, not a blogging platform — you can review films you have
+logged, but not cross-post arbitrary posts. Whatever the target, `brisberg.dev`
 holds the canonical URL and the copy carries `rel=canonical` back to it.
 
-## D10. Content before chrome; no speculative features
+## D12. Content before chrome; no speculative features
 
-Two rules that govern what gets built:
+1. **Content before chrome.** Real content ships on plain layouts before design work.
+2. **No speculative features.** Every addition must be triggered by a piece of
+   content that needed it and didn't have it.
 
-1. **Content before chrome.** Real content ships on plain layouts before any design
-   work happens.
-2. **No speculative features.** Every addition after the pipeline works must be
-   triggered by a piece of content that needed it and didn't have it.
+**Why:** The failure mode for this site is not a bad architecture. It is spending the
+available hours on backlink partials, cross-post OAuth, and CSS instead of writing.
 
-**Why:** There is a five-year record of building publishing infrastructure and not
-publishing. The failure mode is not a bad architecture; it's spending the
-infrastructure budget on backlink partials, cross-post OAuth, and CSS instead of
-writing. Deferred-until-needed by this rule: rendered backlinks/graph view, link
-checking in CI, cross-posting, taxonomy pages, comments, analytics.
-
-## D11. DNS
-
-Registrar is Squarespace (migrated from Google Domains), renewed through 2030,
-grandfathered pricing. Records:
-
-- Apex `A` → GitHub Pages IPs (`185.199.108-111.153`)
-- `www` `CNAME` → `brisberg.github.io`
-- `twine` `CNAME` → `brisberg.github.io`
-
-The `blog` and `wiki` records are retired with the consolidation. `recipies` never
-resolved at all — and the misspelling dies with it: the section is `/recipes/`.
+Deferred under this rule until content demands them: rendered backlinks and graph
+view, link checking in CI, taxonomy pages (D10), search, per-section RSS, analytics,
+comments, and image processing for recipes.
 
 ---
 
 ## Working in this repo
 
-- Hugo site root is `site/`. Run `./scripts/serve.sh`; new content via
-  `./scripts/new.sh <blog|wiki|recipes> "<Title>"`. **No Makefile, no task
-  runner** — there is no build graph, and `just` would mean a `brew` dependency in
-  a system built around not having one (D3).
-- The Hugo version lives in `.hugoversion` at the repo root and is read by CI.
-  There is exactly one number; bump it and your local binary together.
-- Sections: `site/content/blog/`, `site/content/wiki/`, `site/content/recipes/`.
-- Layouts use the Hugo ≥0.146 template system: `layouts/baseof.html`,
-  `layouts/home.html`, `layouts/page.html`, `layouts/list.html`,
-  `layouts/_partials/`, `layouts/_markup/`. There is no `_default/` directory.
-- Homepage promotion is driven by `featured: true` + `weight` in a page's front
-  matter — not a separate curation file.
+- Hugo site root is `site/`. Preview with `./scripts/serve.sh`; create content with
+  `./scripts/new.sh <blog|wiki|recipes> "<Title>"`.
+- Sections: `site/content/{blog,wiki,recipes}/`, plus `site/content/apps.md`.
+- Layouts use the Hugo ≥0.146 template system — there is no `_default/` directory:
+  `layouts/baseof.html`, `home.html`, `page.html`, `list.html`, `_partials/`,
+  `_shortcodes/`. A section needing its own look gets `layouts/<section>/page.html`.
+- Homepage promotion is `featured: true` + `weight` in a page's front matter, not a
+  separate curation file.
 - Publishing is `git commit && git push` to `main`. CI builds and deploys.
+- DNS specifics for the domain are documented as content, in
+  [`/wiki/web-domains/`](site/content/wiki/web-domains/).
