@@ -2,17 +2,18 @@
 	"version": "2.0.0",
 	"tasks": [
 		{
+			"label": "Hugo: Serve",
 			"type": "shell",
-			"command": "hugo",
-			"args": [
-				"server"
-			],
+			"command": "./scripts/serve.sh",
 			"options": {
-				"cwd": "${workspaceFolder}/site"
+				"cwd": "${workspaceFolder}"
 			},
-			"group": "build",
+			"isBackground": true,
 			"problemMatcher": [],
-			"label": "Hugo: Serve"
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			}
 		}
 	]
 }

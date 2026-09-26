@@ -1,13 +1,45 @@
 # brisberg.github.io
 
-Root pages hosting for all of `brisberg.dev`.
+Everything served at **[brisberg.dev](https://brisberg.dev)** — the homepage, the
+blog, the knowledge wiki, and recipes — built with [Hugo](https://gohugo.io) and
+deployed to GitHub Pages.
 
-This should be updated to include links to all my projects, links to my blog, contact info, github presence.
+This repo keeps its `<username>.github.io` name because that is GitHub's special
+user-site repo: it publishes at the root of `brisberg.github.io` rather than under a
+`/<repo>` path.
 
-Specifically this should be an index of my other online content, not necessisarily specific to GitHub but related. Not specifically about any blog posts, which will be hosted elsewhere.
+## Layout
 
-## Framework
+```
+site/            Hugo site root
+  content/       blog/ · wiki/ · recipes/ + apps.md   (Obsidian vault root)
+  layouts/       own layouts — no theme
+  archetypes/    per-section front matter templates
+  static/        css/, img/, CNAME
+scripts/         serve.sh · new.sh
+docs/            how to operate this
+.hugoversion     Hugo version, read by CI
+```
 
-I should look into using [Hugo](https://gohugo.io/) as my site generator, using [Minimal](https://github.com/calintat/minimal) theme. Inspiration https://nikitavoloboev.xyz/.
+## Quick start
 
-There might be other themes, and I could customize it a bit. But it will include social media, blog, projects, wiki, etc.
+```sh
+brew install hugo
+./scripts/serve.sh                        # http://localhost:1313
+./scripts/new.sh blog "A Post Title"      # new content
+git push                                  # publishes
+```
+
+## Docs
+
+- **[docs/publishing.md](docs/publishing.md)** — writing, previewing, publishing,
+  linking, upgrading Hugo, adding a section
+- **[CLAUDE.md](CLAUDE.md)** — the infrastructure decisions and why they were made
+
+## Related
+
+- [twine.brisberg.dev](https://github.com/brisberg/twine.brisberg.dev) — Twine games,
+  a separate repo because it serves compiled game artifacts rather than markdown
+
+`blog.brisberg.dev`, `wiki.brisberg.dev`, and `recipies.brisberg.dev` were folded into
+this repo as sections and are archived.
