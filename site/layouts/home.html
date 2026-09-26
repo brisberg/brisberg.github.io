@@ -1,11 +1,14 @@
 {{ define "main" }}
+  <h1>{{ .Title }}</h1>
+
   <div class="intro">
     {{ .Content }}
   </div>
 
   <nav class="sections" aria-label="Sections">
     <ul>
-      {{ range where .Site.Sections "Section" "in" (slice "blog" "wiki" "recipes") }}
+      {{ $sections := where .Site.Sections "Section" "in" (slice "blog" "wiki" "recipes") }}
+      {{ range $sections.ByWeight }}
         <li>
           <a href="{{ .RelPermalink }}">{{ .Title }}</a>
           {{ with .Description }}<p>{{ . }}</p>{{ end }}
