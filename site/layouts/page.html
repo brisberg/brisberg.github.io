@@ -1,0 +1,15 @@
+{{ define "main" }}
+  <article>
+    <h1>{{ .Title }}</h1>
+
+    {{ if and (not .Date.IsZero) (eq .Section "blog") }}
+      <p class="meta"><time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "January 2, 2006" }}</time></p>
+    {{ end }}
+
+    {{ if and (gt .WordCount 400) (gt (len .TableOfContents) 60) }}
+      <nav class="toc" aria-label="On this page">{{ .TableOfContents }}</nav>
+    {{ end }}
+
+    {{ .Content }}
+  </article>
+{{ end }}

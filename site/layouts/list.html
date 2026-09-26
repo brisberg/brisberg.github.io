@@ -1,0 +1,26 @@
+{{ define "main" }}
+  <h1>{{ .Title }}</h1>
+
+  {{ with .Content }}<div class="section-intro">{{ . }}</div>{{ end }}
+
+  {{ $pages := .Pages }}
+  {{ if eq .Section "blog" }}{{ $pages = .Pages.ByDate.Reverse }}{{ end }}
+
+  {{ if $pages }}
+    <ul class="page-list">
+      {{ range $pages }}
+        <li>
+          <a href="{{ .RelPermalink }}">{{ .Title }}</a>
+          {{ if .IsSection }}<span class="badge">section</span>{{ end }}
+          {{ if and (not .Date.IsZero) (eq .Section "blog") }}
+            <time datetime="{{ .Date.Format "2006-01-02" }}">{{ .Date.Format "Jan 2, 2006" }}</time>
+          {{ end }}
+          {{ with .Description }}<p class="summary">{{ . }}</p>
+          {{ else }}{{ with .Summary }}<p class="summary">{{ . | plainify | truncate 160 }}</p>{{ end }}{{ end }}
+        </li>
+      {{ end }}
+    </ul>
+  {{ else }}
+    <p class="empty">Nothing here yet.</p>
+  {{ end }}
+{{ end }}

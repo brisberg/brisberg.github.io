@@ -1,0 +1,52 @@
+baseURL = 'https://brisberg.dev/'
+locale = 'en-us'          # `languageCode` was deprecated in Hugo 0.158
+title = 'Brandon Risberg'
+
+# No theme. Layouts live in site/layouts/ and are owned by this repo (CLAUDE.md D6).
+
+# Taxonomy pages are out of scope until there is enough content to justify them
+# (CLAUDE.md D10). `tags` in front matter is still recorded and will work
+# retroactively whenever these are switched back on.
+disableKinds = ['taxonomy', 'term']
+
+[params]
+  author = 'Brandon Risberg'
+  description = 'Writing, recipes, and a personal knowledge wiki by Brandon Risberg.'
+  github = 'https://github.com/brisberg'
+
+[markup]
+  # Resolves internal markdown destinations like [Text](path.md) to real
+  # permalinks. 'auto' only activates for multilingual sites, so this must be
+  # explicit or every Obsidian-authored link silently breaks (CLAUDE.md D7).
+  [markup.goldmark.renderHooks.link]
+    useEmbedded = 'always'
+
+  [markup.goldmark.renderer]
+    unsafe = true          # raw HTML in content; carried over from the wiki site
+
+  # Correct only because layouts own the <h1> and content starts at H2.
+  [markup.tableOfContents]
+    startLevel = 2
+    endLevel = 3
+
+[[menu.main]]
+  name = 'Blog'
+  url = '/blog/'
+  weight = 1
+
+[[menu.main]]
+  name = 'Wiki'
+  url = '/wiki/'
+  weight = 2
+
+[[menu.main]]
+  name = 'Recipes'
+  url = '/recipes/'
+  weight = 3
+
+[[menu.main]]
+  name = 'Apps'
+  url = '/apps/'
+  weight = 4
+
+# /cv.pdf is deliberately absent from the menu until site/static/cv.pdf exists.

@@ -1,0 +1,128 @@
+/* brisberg.dev — deliberately plain. Real design work is deferred until there is
+   content to design around (CLAUDE.md D10). */
+
+:root {
+  --fg: #1a1a1a;
+  --fg-muted: #5c5c5c;
+  --bg: #fdfdfc;
+  --accent: #0b5fa5;
+  --rule: #e2e2df;
+  --code-bg: #f4f4f1;
+  --measure: 42rem;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --fg: #e8e8e6;
+    --fg-muted: #a0a09c;
+    --bg: #16161a;
+    --accent: #7fb2e5;
+    --rule: #32323a;
+    --code-bg: #22222a;
+  }
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+
+body {
+  margin: 0 auto;
+  padding: 0 1.25rem 4rem;
+  max-width: var(--measure);
+  background: var(--bg);
+  color: var(--fg);
+  font: 1rem/1.65 -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+  -webkit-text-size-adjust: 100%;
+}
+
+a { color: var(--accent); text-decoration-thickness: 1px; text-underline-offset: 2px; }
+a:hover { text-decoration-thickness: 2px; }
+
+/* Header / nav */
+.site-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: baseline;
+  gap: 0.5rem 1.5rem;
+  padding: 1.75rem 0 1rem;
+  border-bottom: 1px solid var(--rule);
+}
+.site-title { font-weight: 600; font-size: 1.1rem; color: var(--fg); text-decoration: none; }
+.site-header nav ul { display: flex; flex-wrap: wrap; gap: 1rem; margin: 0; padding: 0; list-style: none; }
+.site-header nav a { color: var(--fg-muted); text-decoration: none; font-size: 0.95rem; }
+.site-header nav a:hover { color: var(--accent); }
+.site-header nav a[aria-current="page"] { color: var(--fg); font-weight: 600; }
+
+main { padding-top: 2rem; }
+
+/* Typography */
+h1 { font-size: 1.85rem; line-height: 1.2; margin: 0 0 1rem; }
+h2 { font-size: 1.35rem; line-height: 1.25; margin: 2.25rem 0 0.75rem; }
+h3 { font-size: 1.1rem; margin: 1.75rem 0 0.5rem; }
+p, ul, ol, blockquote, table { margin: 0 0 1.1rem; }
+img { max-width: 100%; height: auto; }
+hr { border: 0; border-top: 1px solid var(--rule); margin: 2.5rem 0; }
+
+blockquote {
+  margin-left: 0;
+  padding-left: 1rem;
+  border-left: 3px solid var(--rule);
+  color: var(--fg-muted);
+}
+
+code, pre {
+  font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+  font-size: 0.875em;
+  background: var(--code-bg);
+}
+code { padding: 0.1em 0.35em; border-radius: 3px; }
+pre { padding: 0.9rem 1rem; border-radius: 4px; overflow-x: auto; }
+pre code { padding: 0; background: none; }
+
+table { width: 100%; border-collapse: collapse; display: block; overflow-x: auto; }
+th, td { padding: 0.4rem 0.6rem; border-bottom: 1px solid var(--rule); text-align: left; }
+
+details { margin: 0 0 1.1rem; padding: 0.6rem 0.9rem; border: 1px solid var(--rule); border-radius: 4px; }
+summary { cursor: pointer; font-weight: 600; }
+details > :last-child { margin-bottom: 0; }
+
+/* Meta / TOC */
+.meta { margin: -0.5rem 0 1.5rem; color: var(--fg-muted); font-size: 0.9rem; }
+.toc {
+  margin: 0 0 2rem;
+  padding: 0.75rem 1rem;
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  font-size: 0.9rem;
+}
+.toc ul { margin: 0; padding-left: 1.1rem; }
+.toc > nav > ul { padding-left: 0; list-style: none; }
+
+/* Lists of pages */
+.page-list, .sections ul { list-style: none; margin: 0; padding: 0; }
+.page-list > li, .sections > ul > li { padding: 0.85rem 0; border-bottom: 1px solid var(--rule); }
+.page-list a, .sections a { font-weight: 600; }
+.page-list time { margin-left: 0.5rem; color: var(--fg-muted); font-size: 0.85rem; }
+.summary, .sections p { margin: 0.2rem 0 0; color: var(--fg-muted); font-size: 0.92rem; }
+.badge {
+  margin-left: 0.4rem;
+  padding: 0.05em 0.45em;
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  color: var(--fg-muted);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+.empty { color: var(--fg-muted); font-style: italic; }
+.featured { margin-top: 2.5rem; }
+.sections { margin: 2rem 0; }
+
+/* Footer */
+.site-footer {
+  margin-top: 4rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--rule);
+  color: var(--fg-muted);
+  font-size: 0.85rem;
+}
+.site-footer p { margin: 0; }

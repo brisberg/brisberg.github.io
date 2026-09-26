@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="{{ .Site.Language.Locale | default "en" }}">
+{{ partial "head.html" . }}
+<body>
+  <header class="site-header">
+    <a class="site-title" href="{{ "/" | relURL }}">{{ .Site.Title }}</a>
+    <nav>
+      <ul>
+        {{ range .Site.Menus.main }}
+          {{ $active := or ($.IsMenuCurrent "main" .) ($.HasMenuCurrent "main" .) }}
+          <li><a href="{{ .URL }}"{{ if $active }} aria-current="page"{{ end }}>{{ .Name }}</a></li>
+        {{ end }}
+      </ul>
+    </nav>
+  </header>
+
+  <main>
+    {{ block "main" . }}{{ end }}
+  </main>
+
+  <footer class="site-footer">
+    <p>
+      &copy; {{ now.Year }} {{ .Site.Params.author }} &middot;
+      <a href="{{ .Site.Params.github }}">GitHub</a> &middot;
+      built with <a href="https://gohugo.io">Hugo</a>
+    </p>
+  </footer>
+</body>
+</html>

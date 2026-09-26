@@ -1,0 +1,12 @@
+{{- /*
+  Replaces the hugo-book theme's `details` shortcode, which wiki content still uses.
+  Usage: {{< details "Summary text" closed >}} body markdown {{< /details >}}
+  The second positional argument is optional; "closed" (or "false") starts collapsed.
+*/ -}}
+{{- $summary := .Get 0 | default "Details" -}}
+{{- $state := .Get 1 | default "" -}}
+{{- $open := not (or (eq $state "closed") (eq $state "false")) -}}
+<details{{ if $open }} open{{ end }}>
+  <summary>{{ $summary | markdownify }}</summary>
+  {{ .Inner | markdownify }}
+</details>

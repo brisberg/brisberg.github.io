@@ -1,3 +1,5 @@
 # Built static files
 public/
 .hugo_build.lock
+# Obsidian vault state (vault is rooted at site/content/)
+content/.obsidian/
