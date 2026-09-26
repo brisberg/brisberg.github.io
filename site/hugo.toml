@@ -1,5 +1,5 @@
 baseURL = 'https://brisberg.dev/'
-locale = 'en-us'          # `languageCode` was deprecated in Hugo 0.158
+locale = 'en-us'
 title = 'Brandon Risberg'
 
 # No theme. Layouts live in site/layouts/ and are owned by this repo (CLAUDE.md D6).
