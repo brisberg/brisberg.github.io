@@ -10,13 +10,7 @@ Git Repositories can be self hosted on your own server, or hosted on one of seve
 
 ### GitHub
 
-[GitHub](https://github.com) is the largest and most popular Git Hosting provider in the world. They offer repositories for open source as well a private reposiroties for individuals, small teams, or enterprise customers. GitHub was [acquired by Microsoft](https://news.microsoft.com/announcement/microsoft-acquires-github) in 2018.
-
-GitHub offers native Continuous Integration workflows using [GitHub Actions](https://github.com/features/actions).
-
-[GitHub Pages](/wiki/web-domains/github-pages.md) offers static asset hosting directly out of a GitHub Repository.
-
-GitHub is my favorite Git Host and nearly all of my coding projects are [hosted](https://github.com/brisberg) there.
+The largest and most popular Git host in the world, and the one nearly all of my projects live on. It has its own pages here: [GitHub](../github/_index.md).
 
 ### GitLab
 

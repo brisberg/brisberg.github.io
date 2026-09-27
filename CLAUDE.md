@@ -173,6 +173,30 @@ Deferred under this rule until content demands them: rendered backlinks and grap
 view, link checking in CI, taxonomy pages (D10), search, per-section RSS, analytics,
 comments, and image processing for recipes.
 
+## D13. Generated pages disclose it, from front matter
+
+A published page whose prose was written by Claude rather than by hand carries
+`generated: claude` in its front matter. `page.html` and `list.html` render the
+disclosure line from that field; the body never states it.
+
+**Why:** A reader weighing how much to trust a page should not have to guess whether
+a person stood behind the words, and git history is not where they will look. Making
+it a structured field rather than a typed sentence means the wording is identical on
+every such page, changes in one place, and can be listed with a `grep` of front
+matter instead of a search for prose.
+
+**Consequence:** The field is all-or-nothing — it marks a page that is *entirely*
+generated. A page mixing generated and hand-written prose does not get it, because a
+reader cannot tell which half is which, so editing a generated page into your own
+words means deleting the line. Both layouts must keep the check: a section's
+`_index.md` renders through `list.html`, and dropping it there would ignore the field
+on every section landing page without failing the build.
+
+**Not covered:** this says nothing about whether generated content should be
+published — only that it is labelled when it is. The bar for publishing it is the
+same as for anything else here: it has to be worth reading, and worth standing
+behind.
+
 ---
 
 ## Working in this repo

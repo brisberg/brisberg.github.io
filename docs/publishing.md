@@ -42,6 +42,23 @@ already proof it was removed on purpose.
 Content headings start at `##`. The layouts render the `<h1>` from the front-matter
 `title`; a second one in the body is a duplicate.
 
+### Pages written by Claude
+
+A page whose prose was generated rather than written by hand carries:
+
+```yaml
+generated: claude
+```
+
+`page.html` and `list.html` both render "This page was written by Claude." under the
+title when that field is set. The wording lives in the layouts, not in the body, so
+it is identical on every such page and can be changed in one place. Set the field on
+the page itself — including a section's `_index.md`, which renders through
+`list.html`.
+
+Do not hand-type a disclosure into the body instead; two mechanisms saying the same
+thing is how one of them ends up missing.
+
 ### Dates
 
 | Field | Meaning |

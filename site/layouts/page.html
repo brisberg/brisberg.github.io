@@ -13,6 +13,12 @@
       </p>
     {{ end }}
 
+    {{/* Provenance for pages I did not write myself. Rendered from front matter so
+         the wording is identical everywhere and cannot drift page to page. */}}
+    {{ if eq .Params.generated "claude" }}
+      <p class="meta">This page was written by Claude.</p>
+    {{ end }}
+
     {{ if and (gt .WordCount 400) (gt (len .TableOfContents) 60) }}
       <nav class="toc" aria-label="On this page">{{ .TableOfContents }}</nav>
     {{ end }}

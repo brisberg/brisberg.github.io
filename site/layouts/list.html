@@ -1,6 +1,12 @@
 {{ define "main" }}
   <h1>{{ .Title }}</h1>
 
+  {{/* Provenance for pages I did not write myself. Rendered from front matter so
+        the wording is identical everywhere and cannot drift page to page. */}}
+  {{ if eq .Params.generated "claude" }}
+    <p class="meta">This page was written by Claude.</p>
+  {{ end }}
+
   {{ with .Content }}<div class="section-intro">{{ . }}</div>{{ end }}
 
   {{ $pages := .Pages }}
