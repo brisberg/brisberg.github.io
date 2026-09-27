@@ -5,8 +5,18 @@ description: "The complete DNS record inventory for brisberg.dev, and why each r
 ---
 
 `brisberg.dev` is registered at [Squarespace Domains](google-domains.md) (originally
-Google Domains) and uses the registrar's own name servers. Content is served by
-[GitHub Pages](github-pages.md); the domain sends and receives no mail.
+Google Domains). Content is served by [GitHub Pages](github-pages.md); the domain sends
+and receives no mail.
+
+**The authoritative name servers are still Google's** —
+`ns-cloud-d{1,2,3,4}.googledomains.com`, i.e. Google Cloud DNS. Squarespace is the
+registrar and provides the editing UI, but migrated domains kept the Google Cloud DNS
+backend. This matters in two places below: the record editor's validation rules are
+Squarespace's, not the DNS backend's, and DNSSEC is enabled.
+
+**DNSSEC is enabled** (a `DS` record is published at the `.dev` parent, using NSEC3 with
+1 iteration and an 8-byte salt). Any future name server migration must transition the
+`DS` record correctly or the domain goes dark for validating resolvers.
 
 Every record in the zone is listed below. If a record is not in this table, it does
 not belong there.
@@ -100,6 +110,10 @@ value `.` — which declares that a domain accepts no mail at all.
 the `MX` value as a hostname, and `.` is not one. There is no way to add it through the
 UI.
 
+Note that this is a *front-end* limitation. The zone is served by Google Cloud DNS,
+which supports `0 .` fine — but the only route to that backend is Squarespace's editor,
+so the capability is unreachable.
+
 The consequence is not cosmetic. With no `MX` record present,
 [RFC 5321 §5.1](https://datatracker.ietf.org/doc/html/rfc5321#section-5.1) has senders
 fall back to the domain's `A` records as an **implicit MX** — so mail addressed to
@@ -116,9 +130,10 @@ An `MX` pointing at a name that does not resolve is *worse* than no `MX` — sen
 generally treat that as a temporary failure and queue-and-retry for days instead of
 bouncing immediately.
 
-The only reliable fix is delegating DNS to a provider that accepts `0 .`, such as
-Cloudflare or Route 53. Moving name servers to convert a slow bounce into a fast one is
-not worth it.
+The only fix is delegating DNS to a provider whose editor accepts `0 .`, such as
+Cloudflare or Route 53. That means migrating the zone *and* re-establishing DNSSEC — a
+botched `DS` transition takes the domain offline for validating resolvers. Risking that
+to convert a bounce into a slightly faster bounce is a bad trade.
 
 ## Verifying the zone
 
