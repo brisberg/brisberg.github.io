@@ -54,5 +54,4 @@ Resource records define how the domain behaves, and are common to every DNS serv
 `A` and `AAAA` records pointing at server IPs, `CNAME` aliases, `MX` for mail, `TXT`
 for verification.
 
-For `brisberg.dev` the working configuration is apex `A` records pointing at the four
-GitHub Pages IPs, plus a `CNAME` for each subdomain pointing at `brisberg.github.io`.
+For a working configuration example, see [Brisberg.dev](brisberg-dev.md).
