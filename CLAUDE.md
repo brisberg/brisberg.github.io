@@ -7,6 +7,10 @@ This file records **decisions that still apply**, and why. It describes what exi
 now — not how it got here. Git history holds the migration that consolidated
 `blog.brisberg.dev`, `wiki.brisberg.dev`, and `recipies.brisberg.dev` into this repo.
 
+A closing section records **open questions** — things deliberately not decided,
+kept here so a later attempt starts from what was already learned rather than
+from zero.
+
 For how to operate the site, see [`docs/publishing.md`](docs/publishing.md).
 
 ---
@@ -196,6 +200,51 @@ on every section landing page without failing the build.
 published — only that it is labeled when it is. The bar for publishing it is the
 same as for anything else here: it has to be worth reading, and worth standing
 behind.
+
+---
+
+## Open questions
+
+### Q1. How is published content reviewed for typos and grammar?
+
+A sweep on 2026-09-26 read all of `site/content` — about 5,300 words across 21
+pages — and fixed 30 errors, some of which had been live for years. That rate is high
+enough to want something repeatable, and nothing is in place.
+
+The errors split into classes that need different tools, which is the whole
+difficulty:
+
+- 11 plain misspellings (`beneith`, `disctates`, `autimatically`)
+- 6 grammar slips where every word is correctly spelled (`I an investigating`,
+  `These isn't a clean declaration`, `summarized the it better`)
+- 9 style inconsistencies (`Wifi`, `github pages`, `E.x.`)
+- 2 British spellings in an otherwise American-spelled repo
+- 1 markdown link with an empty destination
+
+**The option on the table** is [`typos`](https://github.com/crate-ci/typos)
+(`brew install typos-cli`): one Rust binary, no config, no dependency tree — the same
+property that chose Hugo in D3. It addresses only the first class. `aspell` covers
+more but needs a maintained wordlist to stop flagging `gh-pages`, `osxkeychain` and
+`DMARC` on every run. `vale` is the only thing that would catch the style class, at
+the cost of a styles directory and a vocabulary file, to find nine errors
+accumulated over roughly five years.
+
+The exact catch rate is **unverified** — the pre-sweep content is in git history, so
+installing `typos` and running it against that revision would measure it rather than
+assume it.
+
+**The unresolved part is grammar**, which is also the part that embarrasses:
+`I an investigating` was the first line of a published page. No spellchecker finds
+it, because every word is real. The realistic answer is a read-through by a person or
+a model at writing time, one page at a time — a habit, not a tool — and that is what
+this question is actually about.
+
+**Constraint on any answer:** it does not go in CI. D12 defers link checking there
+for the same reason, and a deploy that fails over `Wifi` is worse than the typo. A
+pre-push check or a git hook is the ceiling.
+
+Already settled, so not part of this question: empty-destination links have a grep in
+`docs/publishing.md` alongside the wikilink and unresolved-link checks.
 
 ---
 

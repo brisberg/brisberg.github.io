@@ -115,7 +115,7 @@ resolves them to real URLs:
 [GitHub Pages](/wiki/web-domains/github-pages.md) <!-- absolute -->
 ```
 
-Two things to know:
+Three things to know:
 
 1. **Do not use `[[wikilinks]]`.** Hugo does not support them. Obsidian is
    configured to write standard markdown links instead (Settings → Files & Links →
@@ -136,6 +136,17 @@ Two things to know:
    hugo -s site --minify
    grep -roh 'href=[^ >]*\.md[^ >]*' site/public/   # should return nothing
    ```
+
+3. **A link with an empty destination is invisible to that check.** `[text]()`
+   renders as `<a href="">`, which sends the reader back to the current page. It has
+   no `.md` in it, so the grep above cannot see it — it needs its own:
+
+   ```sh
+   grep -rn '](\s*)' site/content     # should return nothing
+   ```
+
+   This is usually a placeholder left for a page that didn't exist yet. If the target
+   still doesn't exist, the sentence should say so in words rather than link nowhere.
 
 ## Images
 
