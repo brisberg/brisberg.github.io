@@ -193,7 +193,7 @@ words means deleting the line. Both layouts must keep the check: a section's
 on every section landing page without failing the build.
 
 **Not covered:** this says nothing about whether generated content should be
-published — only that it is labelled when it is. The bar for publishing it is the
+published — only that it is labeled when it is. The bar for publishing it is the
 same as for anything else here: it has to be worth reading, and worth standing
 behind.
 

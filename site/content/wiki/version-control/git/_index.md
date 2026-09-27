@@ -18,12 +18,12 @@ The largest and most popular Git host in the world, and the one nearly all of my
 
 GitLab comes with a CI/CD offering called [GitLab CI](https://about.gitlab.com/stages-devops-lifecycle/continuous-integration/).
 
-GitLab offers many options for orgainizing teams, companies, repositories, projects, etc.
+GitLab offers many options for organizing teams, companies, repositories, projects, etc.
 
 ### Bitbucket
 
 [Bitbucket](https://bitbucket.org/product) is a repository host provided by [Atlassian](https://www.atlassian.com/).
 
-Atlassian also provides Jira (ticket tracking software), Confluence (colaborative Wiki), and Trello (task management) products for software teams. Understandably Bitbucket comes with excellent integrations with these products out of the box.
+Atlassian also provides Jira (ticket tracking software), Confluence (collaborative Wiki), and Trello (task management) products for software teams. Understandably Bitbucket comes with excellent integrations with these products out of the box.
 
 Bitbucket provides their own [CI/CD](https://www.atlassian.com/software/bitbucket/features/pipelines) solution.

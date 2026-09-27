@@ -13,9 +13,9 @@ By default, GitHub Pages are hosted at `<user>.github.io/<repository>`.
 
 GitHub Pages must be enabled in your Repository Settings page. Visit `Settings > Options > GitHub Pages`.
 
-Select a source branch to build github pages. It can either build from the branch root `/` or the `/docs` directory. Only these two roots are usable. If you need to build your docs from another path consider using a [GitHub Action](https://github.com/features/actions) to push that directory onto another branch to build from the root of that branch.
+Select a source branch to build GitHub Pages. It can either build from the branch root `/` or the `/docs` directory. Only these two roots are usable. If you need to build your docs from another path consider using a [GitHub Action](https://github.com/features/actions) to push that directory onto another branch to build from the root of that branch.
 
-Convention disctates the branch to build GitHub Pages from be `gh-pages`, but any branch can be specified.
+Convention dictates the branch to build GitHub Pages from be `gh-pages`, but any branch can be specified.
 
 ## Custom Domain
 
@@ -25,7 +25,7 @@ Purchase a [custom domain name](/wiki/web-domains/#purchase-a-domain-name) from 
 
 Point that Domain to `<user>.github.io` and add a CNAME file to the root of your pages branch which contains your domain.
 
-See [blog post]() for details.
+See [blog post](/blog/hosting-a-custom-domain-on-github-pages/index.md) for details.
 
 ### User Pages
 
@@ -33,8 +33,8 @@ There is an optional side benefit for creating a User GitHub Pages site with a c
 
 If you create a special repository called `<user>.github.io`, this will be a User GitHub Pages site. It will be hosted at `<user>.github.io` directly, instead of `<user>.github.io/<user>.github.io`.
 
-Specifying a CNAME in this repository will autimatically apply to all other GitHub Pages hosting of all other GitHub repositories you own.
+Specifying a CNAME in this repository will automatically apply to all other GitHub Pages hosting of all other GitHub repositories you own.
 
 For example:
 - Specify a CNAME of `www.mydomain.com` for `<user>.github.io`.
-- Then another project hosted on GitHub pages will be accessible at `www.mydomain.com/<repository>` instead of `<user>.github.io/<repository>`.
+- Then another project hosted on GitHub Pages will be accessible at `www.mydomain.com/<repository>` instead of `<user>.github.io/<repository>`.

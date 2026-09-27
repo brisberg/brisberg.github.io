@@ -102,7 +102,7 @@ repository:
 
 The cost is that you install an app with administrative write access across your
 repositories, and anyone who can push to the default branch can now change
-repository settings. On a personal account that is usually fine. In an organisation
+repository settings. On a personal account that is usually fine. In an organization
 it is a privilege-escalation path worth thinking about first.
 
 **Your own workflow.** A job triggered on changes to a metadata file, calling the two

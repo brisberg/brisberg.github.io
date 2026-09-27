@@ -2,7 +2,7 @@
 title: "Themes"
 ---
 
-Themes are packages of templates, css, and javascript used by the Hugo engine to produce a Static Site. There are many popular themes to choose from highlighted on [Hugo Themes](https://themes.gohugo.io).
+Themes are packages of templates, CSS, and JavaScript used by the Hugo engine to produce a Static Site. There are many popular themes to choose from highlighted on [Hugo Themes](https://themes.gohugo.io).
 
 Below are my notes and observations on the few with which I am familiar.
 

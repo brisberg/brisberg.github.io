@@ -7,13 +7,13 @@ title: "Adobe Photoshop"
 
 ## File Management
 
-Photoshop files are saved in `.psd` format. They can be stored on your local machine or in cloud storage at Adobe. These files often grow to extreamely large file sizes, making their binary format particularly unsuited for version control.
+Photoshop files are saved in `.psd` format. They can be stored on your local machine or in cloud storage at Adobe. These files often grow to extremely large file sizes, making their binary format particularly unsuited for version control.
 
 ### Smart Objects
 
-[Smart Objects](https://helpx.adobe.com/photoshop/using/create-smart-objects.html) are references to other image assets included in `.psd` files. These Smart Objects can either be `embeded` in the host file or `linked` from the file system. Smart Objects are represented as a type of layer in the host file. These layers can be cropped or transformed with simple position or scale transformations.
+[Smart Objects](https://helpx.adobe.com/photoshop/using/create-smart-objects.html) are references to other image assets included in `.psd` files. These Smart Objects can either be `embedded` in the host file or `linked` from the file system. Smart Objects are represented as a type of layer in the host file. These layers can be cropped or transformed with simple position or scale transformations.
 
-Embeded Smart Objects are copied 'as-is' into the host file. This means the host file can be moved without disrupting any linkages, but increases the file size.
+Embedded Smart Objects are copied 'as-is' into the host file. This means the host file can be moved without disrupting any linkages, but increases the file size.
 
 Linked Smart Objects are more like symbolic links within the `.psd` file. Linked Smart Objects are absolute or relative file paths to include another image as a layer. Linked Smart Objects do not increase the host file size beyond simple metadata. In addition, multiple `.psd` files can all have linkages to the same source file. Updates to the linked file will update all instances included in host files. However, because the reference is a simple file path if either the PSD file or source file are moved the linkage will break.
 

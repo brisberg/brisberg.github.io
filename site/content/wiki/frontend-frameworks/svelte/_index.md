@@ -13,7 +13,7 @@ Svelte 3 (released in late 2019) brings many innovative new features to the web 
 
 Unlike other frameworks which include the framework core as a runtime dependency, Svelte does something different. Svelte is more like a `"compiler"` for `.svelte` files into JavaScript for the browser. This means the framework disappears at build time, and only the portions used by your app are sent to the browser.
 
-This is also how Svelte instraments reactivity, by inserting it into your code at compile time.
+This is also how Svelte instruments reactivity, by inserting it into your code at compile time.
 
 ## TypeScript Support
 
@@ -21,7 +21,7 @@ Svelte 3 added TypeScript support in July 2020 (See their blog [post](https://sv
 
 ## Unit Testing
 
-Most Svelte unit testing is performed using the `@testing-library/svelte` testing library. ([Docs](https://testing-library.com/docs/svelte-testing-library/intro/)). This is a set of compatibility wrappers around the Dom Testing Library for easy use with different libraries, including Svelte.
+Most Svelte unit testing is performed using the `@testing-library/svelte` testing library. ([Docs](https://testing-library.com/docs/svelte-testing-library/intro/)). This is a set of compatibility wrappers around the DOM Testing Library for easy use with different libraries, including Svelte.
 
 ## Example App
 

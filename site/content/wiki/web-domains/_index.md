@@ -3,7 +3,7 @@ weight: 5
 title: "Web Domains"
 ---
 
-[How the internet works](https://medium.com/@User3141592/how-does-the-internet-work-edc2e22e7eb8) is a broad and very technical topic which involves everything from Internet Protocols to Routing Tables. Others have already summarized the it better than I can.
+[How the internet works](https://medium.com/@User3141592/how-does-the-internet-work-edc2e22e7eb8) is a broad and very technical topic which involves everything from Internet Protocols to Routing Tables. Others have already summarized it better than I can.
 
 ## Anatomy of a URL
 
@@ -17,8 +17,8 @@ URLs are made up of several component parts, each of which has a specific meanin
 
 See this excellent [write-up](https://doepud.co.uk/blog/anatomy-of-a-url) for details about all URL components, but for setting up Web Hosting we are mainly concerned with the following:
 
-- [Top-level Domain](https://en.wikipedia.org/wiki/Top-level_domain) - TLDs are the highest level divisions in the Domain Name System. These domains are usually mained by International Organizations and include common domains like `.com`, `.org`, `.gov`, as well as more specialized domains like `.fr`, `.jp`, and Google's `.dev`.
-- [Domain Name](https://en.wikipedia.org/wiki/Domain_name) - Domain names are specific domains within a Top-level Domain and are usually owned by a single entity. For examlpe `google.com` is the domain name for Google Inc. under the `.com` top-level domain.
+- [Top-level Domain](https://en.wikipedia.org/wiki/Top-level_domain) - TLDs are the highest level divisions in the Domain Name System. These domains are usually maintained by International Organizations and include common domains like `.com`, `.org`, `.gov`, as well as more specialized domains like `.fr`, `.jp`, and Google's `.dev`.
+- [Domain Name](https://en.wikipedia.org/wiki/Domain_name) - Domain names are specific domains within a Top-level Domain and are usually owned by a single entity. For example `google.com` is the domain name for Google Inc. under the `.com` top-level domain.
 - [Subdomain](https://en.wikipedia.org/wiki/Subdomain) - Subdomains are named domains within a particular Domain Name. For example `maps.google.com` specifies the `maps` subdomain under the `google.com` domain. `www` is the default subdomain for all domains and can often be omitted when entering a URL.
 
 ## Purchase a Domain Name

@@ -12,4 +12,4 @@ Photoshop alone costs $21 per month, while the Creative Cloud Bundle of all apps
 
 ## Creative Cloud
 
-Adobe offers Creative Cloud as a update manager and file storage engine for creative projects.
+Adobe offers Creative Cloud as an update manager and file storage engine for creative projects.
