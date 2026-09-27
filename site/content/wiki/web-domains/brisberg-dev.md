@@ -2,6 +2,7 @@
 weight: 3
 title: "Custom Domain: brisberg.dev"
 description: "The complete DNS record inventory for brisberg.dev, and why each record exists"
+generated: claude
 ---
 
 `brisberg.dev` is registered at [Squarespace Domains](google-domains.md) (originally
