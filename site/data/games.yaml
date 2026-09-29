@@ -1,0 +1,17 @@
+# The games listed on /apps/. Add new games below to publish them.
+
+# Schema:
+# - `name` - Name of the project. Required.
+# - `url` - URL of the playable artifact (GitHub Pages, itch.io, etc). Required.
+# - `repo` - URL of the project repository. Optional.
+# - `description` - Short text description of the project. Optional
+
+- name: Cellar Crawl
+  url: https://twine.brisberg.dev/cellar-crawl
+  repo: https://github.com/brisberg/cellar-crawl
+  description: Explore the dark cellar beneath a creepy house to discover its secret.
+
+- name: Journey
+  url: https://twine.brisberg.dev/journey
+  repo: https://github.com/brisberg/journey
+  description: Travel the high seas, overcoming challenges in an Oregon Trail inspired game.

@@ -1,0 +1,27 @@
+{{- /*
+  Renders site/data/games.yaml. Usage: {{< games >}}
+
+  Reuses .page-list / .summary from main.css.
+  
+  Reports an error for missing fields.
+*/ -}}
+{{- with hugo.Data.games -}}
+  <ul class="page-list">
+    {{- range . }}
+      {{- if or (not .name) (not .url) }}
+        {{- errorf "data/games.yaml: every entry needs `name` and `url`; got %v" . }}
+      {{- end }}
+      <li>
+        <a href="{{ .url }}">{{ .name }}</a>
+        {{- if or .description .repo }}
+          <p class="summary">
+            {{- with .description }}{{ . }}{{ end -}}
+            {{- with .repo }} <a href="{{ . }}">Source</a>{{ end -}}
+          </p>
+        {{- end }}
+      </li>
+    {{- end }}
+  </ul>
+{{- else -}}
+  <p class="empty">No games listed yet.</p>
+{{- end -}}

@@ -222,3 +222,28 @@ site with 0.78 and another with 0.157.
 
 Sections are for content. A genuinely different *application* gets a subdomain
 instead — see CLAUDE.md D2.
+
+## Adding a game
+
+This repo does not build or host games. Each game repo builds itself and deploys to
+its own environment; this repo only points at the result (CLAUDE.md D2).
+
+1. Append an entry to [`site/data/games.yaml`](../site/data/games.yaml):
+
+   ```yaml
+   - name: Some Game
+     url: https://brisberg.github.io/some-game/
+     repo: https://github.com/brisberg/some-game
+     description: One sentence on what it is.
+   ```
+
+   `name` and `url` are required — the build fails with a named error if either is
+   missing. `repo` and `description` are optional.
+
+2. **Open the `url` and confirm it loads.** Nothing validates it. A typo, or a game
+   whose Pages site was never enabled, renders as an ordinary link and 404s on click.
+
+3. `git commit && git push`.
+
+Do this when you create the game's repo, or at its first playable build — whichever
+comes first. Nothing in the game repo needs to know this file exists.

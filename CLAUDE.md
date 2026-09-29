@@ -31,14 +31,43 @@ cross-references, shared search, and a shared nav in exchange for nothing.
 
 ## D2. Subdomains are for different *applications*, not different *content*
 
-The dividing line is **different runtime**, not different look.
+The dividing line is **different runtime**, not different look — and a different
+*build toolchain* is not a different runtime. A compiled Twine game is a static HTML
+file served by GitHub Pages, exactly like every other page here.
 
-- `twine.brisberg.dev` — its own repo. Serves compiled Twine game artifacts, fanned
-  in via git submodules and `repository_dispatch`. It works; leave it alone.
-- A future SPA or service may claim a subdomain.
-- **Markdown content never gets a subdomain.** It gets a section.
+- **Markdown content never gets a subdomain.** It gets a section (five steps, in
+  `docs/publishing.md`).
+- A future SPA or service with an actual server-side runtime may claim one.
 
-Adding a section is five steps, documented in `docs/publishing.md`.
+**Games are not hosted here, and not listed by hand.** Each game repo owns its own
+build and deploys to its own environment — GitHub Pages, itch.io, whatever fits that
+game. This repo holds only a name, a description, and a link, in `site/data/games.yaml`,
+rendered on `/apps/` by the `games` shortcode.
+
+**Why:** the retired `twine.brisberg.dev` aggregator did exactly one thing this does
+not — own the URL prefix. It paid for that with a repo, two git submodules, a
+cross-repo PAT, a `repository_dispatch` round trip, three third-party actions, and a
+client-side index page whose links were broken from the day it shipped. Moving 500 KB
+build artifacts between repos to earn a URL prefix is an expensive way to publish a
+hyperlink.
+
+**Consequence:** the coupling is one-directional. No game repo references this site or
+holds a credential for it, so a game ships by pushing to its own `main` and nothing
+here moves. The cost is that nothing validates a `url` — a dead deploy renders as a
+perfectly normal link. Check it when you add or change one.
+
+**Consequence:** automatic discovery was considered and rejected. Tagging game repos
+with a topic and scraping `/users/brisberg/repos` at build time works (`description`,
+`homepage`, and `topics` all come back in one unauthenticated call), but it fires at
+most once per game and costs an API dependency in the deploy, a committed fallback
+snapshot, and a nightly cron that GitHub disables after 60 days of repo inactivity.
+Editing one file when a game is born is cheaper than owning that.
+
+**Pending, as of 2026-09-28:** `games.yaml` still points at `twine.brisberg.dev`,
+which still serves both games off git submodules. Retiring it: enable Pages on each
+game repo (`journey` currently 404s at `brisberg.github.io/journey/`), repoint the two
+`url` lines, confirm they load, then delete the repo, its DNS record, and the
+`REPO_ACCESS_TOKEN` secret in both game repos. Delete this paragraph when done.
 
 ## D3. Hugo, pinned in one place
 
