@@ -31,7 +31,6 @@ not belong there.
 | `A` | `@` | `185.199.110.153` | As above. |
 | `A` | `@` | `185.199.111.153` | As above. |
 | `CNAME` | `www` | `brisberg.github.io.` | Main site. Points at the *user* Pages site, not `ghs.googlehosted.com` — see the synthetic-records warning in [Registrars](google-domains.md). |
-| `CNAME` | `twine` | `brisberg.github.io.` | Project Pages deployment for the `twine` repo. |
 | `CNAME` | `friday-fellows` | `brisberg.github.io.` | Project Pages deployment for the `friday-fellows` repo. |
 | `CNAME` | `tqvcie7rmzpe` | `gv-4y3lg2k2ychwgg.dv.googlehosted.com.` | **Google Search Console ownership verification. Do not delete.** See below. |
 | `TXT` | `@` | `v=spf1 -all` | SPF: no host anywhere is authorized to send mail as `brisberg.dev`. |
@@ -90,7 +89,7 @@ Notes on the specific choices:
   `brisberg.dev._report._dmarc.gmail.com`. That is not possible here, so conforming
   reporters would refuse. For a domain with no legitimate mail the reports would be
   pure spoofing noise anyway.
-- **`sp=reject` does the subdomain work.** `www`, `twine` and `friday-fellows` are all
+- **`sp=reject` does the subdomain work.** `www` and `friday-fellows` are both
   `CNAME` records, and a `CNAME` must be alone at its name — no per-subdomain `TXT` or
   `MX` is possible. The apex DMARC policy covers them instead.
 - **Check for registrar mail presets.** If Squarespace email forwarding or a one-click
