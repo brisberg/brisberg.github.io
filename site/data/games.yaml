@@ -7,11 +7,11 @@
 # - `description` - Short text description of the project. Optional
 
 - name: Cellar Crawl
-  url: https://twine.brisberg.dev/cellar-crawl
+  url: https://brisberg.github.io/cellar-crawl/
   repo: https://github.com/brisberg/cellar-crawl
   description: Explore the dark cellar beneath a creepy house to discover its secret.
 
 - name: Journey
-  url: https://twine.brisberg.dev/journey
+  url: https://brisberg.github.io/journey/
   repo: https://github.com/brisberg/journey
   description: Travel the high seas, overcoming challenges in an Oregon Trail inspired game.
