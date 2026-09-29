@@ -63,12 +63,6 @@ most once per game and costs an API dependency in the deploy, a committed fallba
 snapshot, and a nightly cron that GitHub disables after 60 days of repo inactivity.
 Editing one file when a game is born is cheaper than owning that.
 
-**Pending, as of 2026-09-28:** `games.yaml` still points at `twine.brisberg.dev`,
-which still serves both games off git submodules. Retiring it: enable Pages on each
-game repo (`journey` currently 404s at `brisberg.github.io/journey/`), repoint the two
-`url` lines, confirm they load, then delete the repo, its DNS record, and the
-`REPO_ACCESS_TOKEN` secret in both game repos. Delete this paragraph when done.
-
 ## D3. Hugo, pinned in one place
 
 **Why Hugo:** Not because it wins on features — Astro probably does. Because this
