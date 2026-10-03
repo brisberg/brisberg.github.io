@@ -6,7 +6,7 @@
 # - `repo` - URL of the project repository. Optional.
 # - `description` - Short text description of the project. Optional
 
-- name: Cellar Crawl
+- name: Dark Cellar
   url: https://brisberg.github.io/cellar-crawl/
   repo: https://github.com/brisberg/cellar-crawl
   description: Explore the dark cellar beneath a creepy house to discover its secret.
